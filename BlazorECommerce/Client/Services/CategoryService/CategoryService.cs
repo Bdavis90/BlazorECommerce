@@ -1,18 +1,22 @@
 ﻿using BlazorECommerce.Shared;
+using System.Net.Http.Json;
 
 namespace BlazorECommerce.Client.Services.CategoryService
 {
     public class CategoryService : ICategoryService
     {
+        private readonly HttpClient http;
+
         public List<Category> Categories { get; set; } = new List<Category>();
 
-        public void LoadCategories()
+        public CategoryService(HttpClient http)
         {
-            Categories = new List<Category> {
-                new Category { Id = 1, Name = "Books", Url = "books", Icon = "book" },
-                new Category { Id = 2, Name = "Electronics", Url = "electronics", Icon = "camera-slr" },
-                new Category { Id = 3, Name = "Video Games", Url = "video-games", Icon = "aperture" }
-            };
+            this.http = http;
+        }
+
+        public async Task LoadCategoriesAsync()
+        {
+            Categories = await http.GetFromJsonAsync<List<Category>>("Category");
         }
     }
 }
