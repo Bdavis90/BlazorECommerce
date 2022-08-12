@@ -1,3 +1,31 @@
-﻿@page "/"
+﻿@page "/{categoryurl?}"
+@inject ICategoryService CategoryService
 
-<ProductList />
+@if(category is not null)
+{
+    <h1>Welcome to the @category.Name section</h1>
+    <ProductList CategoryId="@category.Id"/>
+} 
+else
+{
+    <h1>Welcome to Blazing Shop</h1>
+    <ProductList />
+}
+
+@code {
+    [Parameter]
+    public string CategoryUrl { get; set; }
+
+    private Category category = null;
+
+    protected override void OnParametersSet()
+    {
+        if(CategoryUrl is not null)
+        {
+            category = CategoryService.Categories.FirstOrDefault(x => x.Url.ToLower().Equals(CategoryUrl.ToLower()));
+        } else
+        {
+            category = null;
+        }
+    }
+}

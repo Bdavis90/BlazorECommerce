@@ -1,6 +1,23 @@
 ﻿@page "/product/{id:int}"
 
-<h3>@product.Title</h3>
+<div class="media">
+    <div class="media-img-big-wrapper mr-2">
+        <img class="media-img-big" src="@product.ImageUrl" alt="@product.Title"/>
+    </div>
+    <div class="media-body">
+        <h2 class="mb-0">@product.Title</h2>
+        <p>@product.Description</p>
+        @if(product.OriginalPrice > product.Price)
+        {
+            <h6 class="text-muted orginal-price">@product.OriginalPrice</h6>
+        }
+        <h4 class="price">
+            @product.Price
+        </h4>
+        <button><i class="oi oi-cart">&nbsp;Add to Cart</i></button>
+
+    </div>
+</div>
 
 @code {
 

@@ -8,6 +8,8 @@ namespace BlazorECommerce.Client.Shared
     {
         [Inject]
         public IProductService ProductService { get; set; }
+        [Parameter]
+        public int? CategoryId { get; set; } = null;
 
         protected async override Task OnInitializedAsync()
         {
