@@ -1,19 +1,27 @@
-﻿using BlazorECommerce.Client.Services;
+﻿
+using BlazorECommerce.Client.Services;
 using BlazorECommerce.Shared;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorECommerce.Client.Shared
 {
-    public partial class ProductList
+    public partial class ProductList: IDisposable
     {
         [Inject]
         public IProductService ProductService { get; set; }
-        [Parameter]
-        public int? CategoryId { get; set; } = null;
 
-        protected async override Task OnInitializedAsync()
+
+        //[Parameter]
+        //public int? CategoryId { get; set; } = null;
+
+        protected override void OnInitialized()
         {
-           ProductService.LoadProducts();
+            //await ProductService.LoadProducts();
+            ProductService.OnChange += StateHasChanged;
+        }
+        public void Dispose()
+        {
+            ProductService.OnChange -= StateHasChanged;   
         }
     }
 }

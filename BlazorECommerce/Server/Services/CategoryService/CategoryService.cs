@@ -13,5 +13,10 @@ namespace BlazorECommerce.Server.Services.CategoryService
         {
             return Task.FromResult(Categories);
         }
+
+        public Task<Category> GetCategoryByUrl(string categoryUrl)
+        {
+            return Task.FromResult(Categories.FirstOrDefault(x => x.Url.ToLower().Equals(categoryUrl.ToLower())));
+        }
     }
 }

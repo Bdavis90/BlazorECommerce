@@ -1,5 +1,5 @@
 ﻿<ul class="list-unstyled">
-    @foreach (var product in CategoryId is null ? ProductService.Products : ProductService.Products.Where(x => x.CategoryId == CategoryId))
+    @foreach (var product in ProductService.Products)
     {
         <li class="media my-3">
             <div class="media-img-wrapper mr-2">
@@ -16,7 +16,7 @@
                 {
                     <h6 class="text-muted original-price">@product.OriginalPrice</h6>
                 }
-                <h5 class="price">
+                <h5 class="price" >
                     @product.Price
                 </h5>
             </div>

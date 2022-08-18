@@ -12,15 +12,15 @@ namespace BlazorECommerce.Client.Pages
         [Inject]
         public IProductService ProductService { get; set; }
 
-        protected override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
-            if(ProductService is null || ProductService.Products.Count == 0)
-            {
-                ProductService.LoadProducts();
-            }
+            //if(ProductService is null || ProductService.Products.Count == 0)
+            //{
+            //    ProductService.LoadProducts();
+            //}
 
-            product = ProductService.Products.FirstOrDefault(x => x.Id == Id);
-            return base.OnInitializedAsync();
+            product = await ProductService.GetProduct((int)Id);
+            //return base.OnInitializedAsync();
         }
     }
 }
